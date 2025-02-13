@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Central Intelligence Agency | CrimeLife Access Store</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Google Fonts for Typography -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,600,700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-..." crossorigin="anonymous">
+    <!-- Favicon -->
+    <link rel="icon" href="images/favicon.ico">
+    <!-- Particles.js Library -->
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <!-- CSS Styles -->
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(120deg, #000000, #8B0000);
+            color: #fff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: auto;
+            overflow: hidden;
+        }
+        header {
+            background: rgba(0, 0, 0, 0.9);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: background-color 0.3s;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+        }
+        .branding {
+            float: left;
+            padding: 20px 0;
+        }
+        .branding h1 {
+            font-size: 28px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .branding span {
+            color: #ff0000;
+        }
+        nav {
+            float: right;
+        }
+        .nav-links {
+            list-style: none;
+            display: flex;
+        }
+        .nav-links li {
+            margin-left: 20px;
+        }
+        .nav-links a {
+            color: #fff;
+            font-weight: 600;
+            padding: 25px 0;
+            display: block;
+            position: relative;
+        }
+        .nav-links a::after {
+            content: '';
+            width: 0%;
+            height: 2px;
+            background: #ff0000;
+            position: absolute;
+            left: 0;
+            bottom: 15px;
+            transition: width 0.3s;
+        }
+        .nav-links a:hover::after, .nav-links a.active::after {
+            width: 100%;
+        }
+        .menu-toggle {
+            display: none;
+            cursor: pointer;
+            float: right;
+            padding: 25px 0;
+        }
+        .menu-toggle span {
+            display: block;
+            width: 30px;
+            height: 3px;
+            background-color: #fff;
+            margin: 5px 0;
+            transition: background-color 0.3s;
+        }
+        .hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: #fff;
+            overflow: hidden;
+        }
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(120deg, #000000, #8B0000);
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+        .hero-content {
+            z-index: 1;
+            max-width: 700px;
+            margin: auto;
+        }
+        .hero h2 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
+            animation: fadeInDown 1s ease-out;
+        }
+        .hero p {
+            font-size: 24px;
+            margin-bottom: 40px;
+            animation: fadeInUp 1s ease-out;
+        }
+        .hero .btn {
+            background-color: #ff0000;
+            color: #fff;
+            padding: 15px 30px;
+            font-size: 18px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+            animation: fadeInUp 1s ease-out;
+        }
+        .hero .btn:hover {
+            background-color: #cc0000;
+            transform: translateY(-5px);
+        }
+        .social-icons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        .social-icons a {
+            color: #fff;
+            font-size: 32px;
+            position: relative;
+            transition: transform 0.3s;
+        }
+        .social-icons a:hover {
+            transform: scale(1.2);
+        }
+        .red-discord::after,
+        .blue-discord::after,
+        .roblox-icon::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(0,0,0,0.8);
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 4px;
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+            font-size: 14px;
+        }
+        .red-discord::after {
+            background-color: #ff1d1d;
+        }
+        .blue-discord::after {
+            background-color: #1f48fd;
+        }
+        .roblox-icon::after {
+            background-color: #ff6600;
+        }
+        .social-icons a:hover::after {
+            opacity: 1;
+        }
+        .scroll-indicator {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 32px;
+            color: #ff0000;
+            animation: bounce 2s infinite;
+            z-index: 1;
+        }
+        section {
+            padding: 80px 0;
+        }
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+            font-size: 36px;
+        }
+        .section-title::after {
+            content: '';
+            width: 80px;
+            height: 4px;
+            background-color: #ff0000;
+            display: block;
+            margin: 20px auto 0;
+            border-radius: 2px;
+        }
+        .ranks {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .rank-card {
+            background-color: rgba(30, 30, 30, 0.9);
+            border-radius: 10px;
+            width: 280px;
+            margin: 20px;
+            text-align: center;
+            padding: 30px 20px;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            backdrop-filter: blur(5px);
+        }
+        .rank-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+        }
+        .rank-card h3 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        .rank-card .price {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #ff0000;
+        }
+        .rank-card ul {
+            list-style: none;
+            padding: 0;
+            text-align: left;
+            margin-bottom: 20px;
+        }
+        .rank-card ul li {
+            margin-bottom: 10px;
+            font-size: 16px;
+            position: relative;
+            padding-left: 25px;
+        }
+        .rank-card ul li::before {
+            content: "\f058";
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: #ff0000;
+        }
+        .rank-card .btn {
+            background-color: #ff0000;
+            color: #fff;
+            padding: 15px 30px;
+            font-size: 18px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: background-color 0.3s, transform 0.3s;
+            text-decoration: none;
+        }
+        .rank-card .btn:hover {
+            background-color: #cc0000;
+            transform: translateY(-5px);
+        }
+        /* Fiery Effect for VIP Rank */
+        .vip-rank {
+            position: relative;
+            overflow: hidden;
+        }
+        .vip-rank::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,165,0,0.6) 0%, rgba(255,69,0,0.6) 50%, rgba(255,0,0,0.6) 100%);
+            animation: rotate 5s linear infinite;
+            opacity: 0.5;
+            pointer-events: none;
+        }
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            cursor: help;
+        }
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 200px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            border-radius: 6px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+        .back-to-top {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            background-color: #ff0000;
+            color: #fff;
+            padding: 15px;
+            border-radius: 50%;
+            font-size: 24px;
+            cursor: pointer;
+            display: none;
+            z-index: 1000;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        .back-to-top:hover {
+            background-color: #cc0000;
+            transform: translateY(-5px);
+        }
+        #buying-info {
+            background-color: #1e1e1e;
+            color: #fff;
+            padding: 80px 0;
+        }
+        #buying-info h2.section-title i {
+            color: #ff0000;
+            margin-right: 10px;
+        }
+        #buying-info p, #buying-info ul, #buying-info ol {
+            font-size: 16px;
+            line-height: 1.6;
+        }
+        #buying-info h3 {
+            margin-top: 40px;
+            font-size: 24px;
+            color: #ff0000;
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-15px); }
+            60% { transform: translateY(-10px); }
+        }
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        footer {
+            background-color: #1e1e1e;
+            color: #777;
+            padding: 20px 0;
+            text-align: center;
+            font-size: 14px;
+        }
+        footer a {
+            color: #ff0000;
+        }
+        @media (max-width: 768px) {
+            .branding, .nav-links, .menu-toggle {
+                float: none;
+                text-align: center;
+            }
+            .nav-links {
+                flex-direction: column;
+                display: none;
+                background-color: #1e1e1e;
+            }
+            .nav-links li {
+                margin: 0;
+            }
+            .nav-links a {
+                padding: 15px 0;
+            }
+            .menu-toggle {
+                display: block;
+            }
+            .hero h2 {
+                font-size: 32px;
+            }
+            .hero p {
+                font-size: 18px;
+            }
+            .ranks {
+                flex-direction: column;
+                align-items: center;
+            }
+            .rank-card {
+                width: 90%;
+            }
+            .back-to-top {
+                right: 20px;
+                bottom: 20px;
+            }
+        }
+
+        .social-icons a {
+            position: relative;
+            display: inline-block;
+            transition: transform 0.3s;
+        }
+        .social-icons a img {
+            display: block;
+            width: 50px;
+            height: 50px;
+            transition: transform 0.3s;
+        }
+        .social-icons a:hover {
+            transform: scale(1.2);
+        }
+        .social-icons a::after {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            width: calc(100% + 10px);
+            height: calc(100% + 10px);
+            border-radius: 15%;
+            border: 2px dashed transparent;
+            box-sizing: border-box;
+            pointer-events: none;
+            transform-origin: center;
+        }
+        @keyframes rotate-outline {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header id="header">
+        <div class="container">
+            <div class="branding">
+                <h1>Central Intelligence Agency | CrimeLife</h1>
+            </div>
+            <nav>
+                <div class="menu-toggle" id="mobile-menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#home" class="active">Home</a></li>
+                    <li><a href="#ranks">Access Levels</a></li>
+                    <li><a href="#buying-info">Buying Info</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <section id="home" class="hero">
+        <div id="particles-js"></div>
+        <div class="hero-content">
+            <h2>Elevate Your CrimeLife Experience</h2>
+            <p>Unlock exclusive weapons and items with our premium access levels.</p>
+            <button class="btn" onclick="scrollToSection('ranks')">Explore Access Levels</button>
+            <div class="social-icons">
+                <a href="https://discord.gg/fFyP38xyzv" target="_blank" data-tooltip="Discord Server" class="discord">
+                    <img src="https://cdn.discordapp.com/attachments/1234935502860189728/1299506706207735808/1k2bwxrxecy51.png?ex=671d736e&is=671c21ee&hm=e2229955c502e51a64482ab96ebf1db12d9041373739718539fa3eaa354236d3&" alt="Discord Logo">
+                </a>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </section>
+    <section id="ranks">
+        <div class="container">
+            <h2 class="section-title">Available Access Levels</h2>
+            <div class="ranks">
+                <div class="rank-card">
+                    <h3>Low Access</h3>
+                    <p class="price">250 Robux / $2.00 USD</p>
+                    <ul>
+                        <li>GLOCK 17</li>
+                        <li>AR PISTOL</li>
+                        <li>RUGER</li>
+                    </ul>
+                    <a href="https://www.roblox.com/catalog/14352950568/Low-Access" class="btn">Purchase</a>
+                </div>
+                <div class="rank-card">
+                    <h3>Medium Access</h3>
+                    <p class="price">500 Robux / $5.00 USD</p>
+                    <ul>
+                        <li>All Low Access benefits</li>
+                        <li>SPAS 12</li>
+                        <li>KILO</li>
+                    </ul>
+                    <a href="https://www.roblox.com/catalog/14353368903/Medium-Access" class="btn">Purchase</a>
+                </div>
+                <div class="rank-card">
+                    <h3>High Access</h3>
+                    <p class="price">750 Robux / $8.00 USD</p>
+                    <ul>
+                        <li>All Medium Access benefits</li>
+                        <li>KRISS VECTOR</li>
+                        <li>AK47</li>
+                    </ul>
+                    <a href="https://www.roblox.com/catalog/14353374809/High-Access" class="btn">Purchase</a>
+                </div>
+                <div class="rank-card">
+                    <h3>Full Access</h3>
+                    <p class="price">1,000 Robux / $10.00 USD</p>
+                    <ul>
+                        <li>All High Access benefits</li>
+                        <li>MK18</li>
+                        <li>G36C</li>
+                        <li>AUG A2</li>
+                        <li>GATORADE</li>
+                    </ul>
+                    <a href="https://www.roblox.com/catalog/14376201190/Full-Access" class="btn">Purchase</a>
+                </div>
+                <div class="rank-card">
+                    <h3>Exclusive Access</h3>
+                    <p class="price">2,000 Robux / $20.00 USD</p>
+                    <ul>
+                        <li>All Full Access benefits</li>
+                        <li>AR15</li>
+                        <li>HK416</li>
+                        <li>PRIME BOTTLE</li>
+                    </ul>
+                    <a href="https://www.roblox.com/catalog/14376202997/Exclusive-Access" class="btn">Purchase</a>
+                </div>
+                <div class="rank-card vip-rank">
+                    <h3>VIP Access</h3>
+                    <p class="price">3,000 Robux / $30.00 USD</p>
+                    <ul>
+                        <li>All Exclusive Access benefits</li>
+                        <li>1 TAP SNIPER</li>
+                        <li><span class="tooltip">OP 1 TAP KRNL<span class="tooltiptext">NO RECOIL/HIGH FIRERATE</span></span></li>
+                        <li>3 TAP DESERT EAGLE</li>
+                        <li>4 TAP SCAR L</li>
+                        <li>M249</li>
+                        <li><span class="tooltip">1 TAP AR15 PISTOL<span class="tooltiptext">NO RECOIL</span></span></li>
+                    </ul>
+                    <a href="https://www.roblox.com/catalog/14376204689/VIP-Access" class="btn">Purchase</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="buying-info">
+        <div class="container">
+            <h2 class="section-title"><i class="fas fa-fire"></i> Buying Access Information</h2>
+            <p>Wow! I see you're trying to buy access. Before you do that, we recommend you look below so you can provide the proper information so our staff members can help you.</p>
+            <ol>
+                <li>Send us your payment method. We currently only allow (Robux, Cashapp). If you can't pay with any of those, we suggest you close this page now.</li>
+                <li>Which access are you buying? Look below for the options:</li>
+            </ol>
+            <h3>Access Levels</h3>
+            <ul>
+                <li><strong>Low Access</strong>
+                    <ul>
+                        <li>GLOCK 17</li>
+                        <li>AR PISTOL</li>
+                        <li>RUGER</li>
+                    </ul>
+                </li>
+                <li><strong>Medium Access</strong>
+                    <ul>
+                        <li>SPAS 12</li>
+                        <li>KILO</li>
+                    </ul>
+                </li>
+                <li><strong>High Access</strong>
+                    <ul>
+                        <li>KRISS VECTOR</li>
+                        <li>AK47</li>
+                    </ul>
+                </li>
+                <li><strong>Full Access</strong>
+                    <ul>
+                        <li>MK18</li>
+                        <li>G36C</li>
+                        <li>AUG A2</li>
+                        <li>GATORADE</li>
+                    </ul>
+                </li>
+                <li><strong>Exclusive Access</strong>
+                    <ul>
+                        <li>AR15</li>
+                        <li>HK416</li>
+                        <li>PRIME BOTTLE</li>
+                    </ul>
+                </li>
+                <li><strong>VIP Access</strong>
+                    <ul>
+                        <li>1 TAP SNIPER</li>
+                        <li>OP 1 TAP KRNL (NO RECOIL/HIGH FIRERATE)</li>
+                        <li>3 TAP DESERT EAGLE</li>
+                        <li>4 TAP SCAR L</li>
+                        <li>M249</li>
+                        <li>1 TAP AR15 PISTOL (NO RECOIL)</li>
+                    </ul>
+                </li>
+            </ul>
+            <p>Now that you've done all that, you can look at our prices below:</p>
+            <h3>Cashapp Prices</h3>
+            <ul>
+                <li>Low Access - 2 Dollars [USD]</li>
+                <li>Medium Access - 5 Dollars [USD]</li>
+                <li>High Access - 8 Dollars [USD]</li>
+                <li>Full Access - 10 Dollars [USD]</li>
+                <li>Exclusive Access - 20 Dollars [USD]</li>
+                <li>VIP Access - 30 Dollars [USD]</li>
+            </ul>
+            <h3>Robux Prices</h3>
+            <ul>
+                <li>Low Access - 250 Robux</li>
+                <li>Medium Access - 500 Robux</li>
+                <li>High Access - 750 Robux</li>
+                <li>Full Access - 1,000 Robux</li>
+                <li>Exclusive Access - 2,000 Robux</li>
+                <li>VIP Access - 3,000 Robux</li>
+            </ul>
+            <p><strong>When buying access with Cashapp, please inside the note that Cashapp request put "CIA" then your access. For example, "CIA MEDIUM ACCESS" so we know it's a CIA sale and it's easier to prove what access you purchased. (PLEASE REMEMBER NO REFUNDS)</strong></p>
+        </div>
+    </section>
+    <section id="contact">
+        <div class="container">
+            <h2 class="section-title">Get in Touch</h2>
+            <p>If you have any questions or need assistance, feel free to reach out to us.</p>
+            <button class="btn" onclick="location.href='mailto:support@cia-crimelife.com'">Contact Support</button>
+        </div>
+    </section>
+    <div class="back-to-top" id="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 Central Intelligence Agency | CrimeLife. All rights reserved. | <a href="#policy">Terms of Service</a> | <a href="#policy">Privacy Policy</a></p>
+        </div>
+    </footer>
+    <script>
+        const menuToggle = document.querySelector('#mobile-menu');
+        const navLinks = document.querySelector('.nav-links');
+
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            menuToggle.classList.toggle('is-active');
+        });
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                menuToggle.classList.remove('is-active');
+            });
+        });
+
+        function scrollToSection(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-links a');
+            let currentSection = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                if (pageYOffset >= sectionTop) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').includes(currentSection)) {
+                    link.classList.add('active');
+                }
+            });
+            const header = document.querySelector('#header');
+            if (window.scrollY > 50) {
+                header.style.backgroundColor = 'rgba(0, 0, 0, 0.9)';
+            } else {
+                header.style.backgroundColor = 'transparent';
+            }
+            const backToTop = document.getElementById('back-to-top');
+            if (window.scrollY > 500) {
+                backToTop.style.display = 'block';
+            } else {
+                backToTop.style.display = 'none';
+            }
+        });
+
+        document.getElementById('back-to-top').addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        particlesJS('particles-js',
+        {
+            "particles": {
+                "number": {
+                    "value": 80,
+                    "density": {
+                        "enable": true,
+                        "value_area": 800
+                    }
+                },
+                "color": {
+                    "value": "#ff0000"
+                },
+                "shape": {
+                    "type": "circle",
+                    "stroke": {
+                        "width": 0,
+                        "color": "#000"
+                    }
+                },
+                "opacity": {
+                    "value": 0.5,
+                    "random": false
+                },
+                "size": {
+                    "value": 3,
+                    "random": true
+                },
+                "line_linked": {
+                    "enable": true,
+                    "distance": 150,
+                    "color": "#ff0000",
+                    "opacity": 0.4,
+                    "width": 1
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 4,
+                    "direction": "none",
+                    "random": false,
+                    "out_mode": "out"
+                }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": {
+                        "enable": true,
+                        "mode": "grab"
+                    }
+                },
+                "modes": {
+                    "grab": {
+                        "distance": 200,
+                        "line_linked": {
+                            "opacity": 0.7
+                        }
+                    }
+                }
+            },
+            "retina_detect": true
+        });
+    </script>
+</body>
+</html>
